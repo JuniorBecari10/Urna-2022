@@ -6,6 +6,9 @@
 #define columns  16
 #define lines    2
 
+#define PRES_LENGTH 12
+#define GOV_LENGTH 10
+
 unsigned char pinsLines[] = { 6, 7, 8, 9 };
 unsigned char pinsColumns[] = { 10, 11, 12, 13 };
 
@@ -57,6 +60,8 @@ void setup()
 
 void loop()
 {
+    lcd.clear();
+    
     if (state == 0)
     {
         lcd.setCursor(0, 0);
@@ -75,6 +80,67 @@ void loop()
     }
     else if (state == 1)
     {
+        lcd.setCursor(0, 0);
+        lcd.print("Presidente");
         
+        char c1 = '_';
+        char c2 = '_';
+        int pointer = 0;
+        
+        char key = '\0';
+        
+        while (pointer < 2)
+        {
+            lcd.setCursor(0, 1);
+            lcd.print(c1);
+            
+            lcd.setCursor(1, 1);
+            lcd.print(c2);
+            
+            key = keypad.getKey();
+            
+            if (key)
+            {
+                if (pointer == 0)
+                {
+                    c1 = key;
+                }
+                else if (pointer == 1)
+                {
+                    c2 = key;
+                }
+                
+                pointer++;
+            }
+        }
+        
+        char num[2] = {c1, c2};
+        int number = atoi(num);
+        int index = 0;
+        
+        for (int i = 0; i < PRES_LENGTH; i++)
+        {
+            if (pres[i].number == number)
+            {
+                index = i;
+                break;
+            }
+        }
+        
+        lcd.setCursor(0, 0);
+        lcd.print("                ");
+        
+        lcd.print(pres[index].name);
+        
+        key = keypad.getKey();
+        
+        if (key == '#')
+        {
+            state++;
+        }
+        else if (key == '*')
+        {
+            return;
+        }
     }
 }

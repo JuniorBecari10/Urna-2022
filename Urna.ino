@@ -1,40 +1,26 @@
-// INCLUSÃO DE BIBLIOTECAS
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
-// DEFINIÇÕES
-#define endereco  0x3F // Endereços comuns: 0x27, 0x3F
-#define colunas   16
-#define linhas    2
+#define address  0x3F
+#define columns  16
+#define lines    2
 
-// INSTANCIANDO OBJETOS
-LiquidCrystal_I2C lcd(endereco, colunas, linhas);
+int pinsLines[] = { 6, 7, 8, 9 };
+int pinsColumns[] = { 10, 11, 12, 13 };
+
+char keys[4][4] = {{'1', '2', '3', 'A'}
+                   {'4', '5', '6', 'B'}
+                   {'7', '8', '9', 'C'}
+                   {'*', '0', '#', 'D'}};
+
+LiquidCrystal_I2C lcd(address, columns, lines);
 
 void setup() {
-  lcd.init(); // INICIA A COMUNICAÇÃO COM O DISPLAY
-  lcd.backlight(); // LIGA A ILUMINAÇÃO DO DISPLAY
-  lcd.clear(); // LIMPA O DISPLAY
-
-  lcd.print("- Ola, Mundo! -");
-  delay(5000); // DELAY DE 5 SEGUNDOS
-  lcd.setCursor(0, 1); // POSICIONA O CURSOR NA PRIMEIRA COLUNA DA LINHA 2
-  lcd.print("Fim do Setup ()");
-  delay(5000); // DELAY DE 5 SEGUNDOS
-  
-  lcd.noBacklight(); // DESLIGA A ILUMINAÇÃO DO DISPLAY
-  delay(2000); // DELAY DE 2 SEGUNDOS
-  lcd.backlight(); // LIGA A ILUMINAÇÃO DO DISPLAY
-  delay(2000); // DELAY DE 2 SEGUNDOS
-  
-  lcd.clear(); // LIMPA O DISPLAY
-  //lcd.noBacklight(); // DESLIGA A ILUMINAÇÃO DO DISPLAY
+    lcd.init();
+    lcd.backlight();
+    lcd.clear();
 }
 
 void loop() {
-
-  //lcd.clear();
-  lcd.print("- Ola, Mundo! -");
-  lcd.setCursor(0, 1); // POSICIONA O CURSOR NA PRIMEIRA COLUNA DA LINHA 2
-  lcd.print("Fim do Setup ()");
-
+    
 }

@@ -5,6 +5,8 @@
 #define columns  16
 #define lines    2
 
+#define MAX_NAME 16
+
 int pinsLines[] = { 6, 7, 8, 9 };
 int pinsColumns[] = { 10, 11, 12, 13 };
 
@@ -17,7 +19,7 @@ char keys[4][4] = {{'1', '2', '3', 'A'},
 
 struct Candidate
 {
-    string name;
+    char name[MAX_NAME]; // string
     unsigned char number; // byte
 };
 /*

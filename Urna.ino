@@ -16,6 +16,14 @@ char keys[4][4] = {{'1', '2', '3', 'A'},
 
 Keypad keypad = Keypad(makeKeymap(keys), pinsLines, pinsColumns, 4, 4);
 
+int state = 0;
+
+// 0 - start
+// 1 - presidente
+// 2 - governador
+// 3 - fim votou
+// 4 - mais votados
+
 // -----------
 
 struct Candidate
@@ -30,7 +38,10 @@ Candidate pres[] = { {"Ciro Gomes", 12, 0}, {"Eymael", 27, 0}, {"Felipe D'Ávila
                      {"Pablo Marçal", 90, 0}, {"Roberto Jeff.", 14, 0}, {"Simone Tebet", 15, 0},
                      {"Sofia Manzano", 21, 0}, {"Soraya Thronicke", 44, 0}, {"Vera", 16, 0} };
 
-Candidate gov[] = { {"Altino", 16, 0} };
+Candidate gov[] = { {"Altino", 16, 0}, {"Antonio Jorge", 27, 0}, {"Carol Vigliar", 80, 0},
+                    {"Edson Dorta", 29, 0}, {"Elvis Cezar", 12, 0}, {"Fernando Haddad", 13, 0},
+                    {"Gabriel Colombo", 21, 0}, {"Rodrigo Garcia", 45, 0}, {"Tarcísio", 10, 0},
+                    {"Vinicius Poit", 30, 0} };
 
 LiquidCrystal_I2C lcd(address, columns, lines);
 
@@ -46,10 +57,24 @@ void setup()
 
 void loop()
 {
-    char key = keypad.getKey();
-    
-    if (key)
+    if (state == 0)
     {
-        Serial.println(key);
+        lcd.setCursor(0, 0);
+        lcd.print("Urna 2022");
+        
+        lcd.setCursor(0, 1);
+        lcd.print("Aperte uma tecla");
+        
+        char c = '\0';
+        while (!c)
+        {
+            c = keypad.getKey();
+        }
+        
+        state++;
+    }
+    else if (state == 1)
+    {
+        
     }
 }

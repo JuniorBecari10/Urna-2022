@@ -13,6 +13,24 @@ char keys[4][4] = {{'1', '2', '3', 'A'},
                    {'7', '8', '9', 'C'},
                    {'*', '0', '#', 'D'}};
 
+// -----------
+
+struct Candidate
+{
+    string name;
+    unsigned char number; // byte
+};
+/*
+string candPres[] = { "Ciro Gomes", "Eymael", "Felipe D'Ávila",
+                      "Jair Bolsonaro", "Lula", "Léo Péricles",
+                      "Pablo Marçal", "Roberto Jeff.", "Simone Tebet",
+                      "Sofia Manzano", "Soraya Thronicke", "Vera" };
+*/
+Candidate pres[] = { {"Ciro Gomes", 12}, {"Eymael", 27}, {"Felipe D'Ávila", 30},
+                     {"Jair Bolsonaro", 22}, {"Lula", 13}, {"Léo Péricles", 80},
+                     {"Pablo Marçal", 90}, {"Roberto Jeff.", 14}, {"Simone Tebet", 15},
+                     {"Sofia Manzano", 21}, {"Soraya Thronicke", 44}, {"Vera", 16} };
+
 LiquidCrystal_I2C lcd(address, columns, lines);
 
 void setup()
@@ -32,8 +50,8 @@ void setup()
         pinMode(pinsColumns[i], INPUT_PULLUP);
     }
     
-    Serial.begin(9600);
-    Serial.println("Waiting...");
+    //Serial.begin(9600);
+    //Serial.println("Waiting...");
 }
 
 void loop()
@@ -46,8 +64,8 @@ void loop()
         {
             if (digitalRead(pinsColumns[c]) == LOW)
             {
-                Serial.print("Tecla: ");
-                Serial.println(keys[l][c]);
+                //Serial.print("Tecla: ");
+                //Serial.println(keys[l][c]);
                 
                 while (digitalRead(pinsColumns[c]) == LOW) {}
             }

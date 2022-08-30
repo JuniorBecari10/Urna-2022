@@ -36,14 +36,14 @@ struct Candidate
     int votes;
 };
 
-Candidate pres[] = { {"Ciro Gomes", 12, 0}, {"Eymael", 27, 0}, {"Felipe D'Ávila", 30, 0},
-                     {"Jair Bolsonaro", 22, 0}, {"Lula", 13, 0}, {"Léo Péricles", 80, 0},
-                     {"Pablo Marçal", 90, 0}, {"Roberto Jeff.", 14, 0}, {"Simone Tebet", 15, 0},
+Candidate pres[] = { {"Ciro Gomes", 12, 0}, {"Eymael", 27, 0}, {"Felipe D'Avila", 30, 0},
+                     {"Jair Bolsonaro", 22, 0}, {"Lula", 13, 0}, {"Léo Pericles", 80, 0},
+                     {"Pablo Marcal", 90, 0}, {"Roberto Jeff.", 14, 0}, {"Simone Tebet", 15, 0},
                      {"Sofia Manzano", 21, 0}, {"Soraya Thronicke", 44, 0}, {"Vera", 16, 0} };
 
 Candidate gov[] = { {"Altino", 16, 0}, {"Antonio Jorge", 27, 0}, {"Carol Vigliar", 80, 0},
                     {"Edson Dorta", 29, 0}, {"Elvis Cezar", 12, 0}, {"Fernando Haddad", 13, 0},
-                    {"Gabriel Colombo", 21, 0}, {"Rodrigo Garcia", 45, 0}, {"Tarcísio", 10, 0},
+                    {"Gabriel Colombo", 21, 0}, {"Rodrigo Garcia", 45, 0}, {"Tarcisio", 10, 0},
                     {"Vinicius Poit", 30, 0} };
 
 LiquidCrystal_I2C lcd(address, columns, lines);
@@ -114,6 +114,12 @@ void loop()
             }
         }
         
+        lcd.setCursor(0, 1);
+        lcd.print(c1);
+        
+        lcd.setCursor(1, 1);
+        lcd.print(c2);
+        
         char num[2] = {c1, c2};
         int number = atoi(num);
         int index = 0;
@@ -128,17 +134,96 @@ void loop()
         }
         
         lcd.setCursor(0, 0);
-        lcd.print("                ");
         
         lcd.print(pres[index].name);
         
-        key = keypad.getKey();
+        key = '\0';
+        
+        while (!key)
+        {
+            key = keypad.getKey();
+        }
         
         if (key == '#')
         {
             state++;
         }
-        else if (key == '*')
+        else
+        {
+            return;
+        }
+    }
+    else if (state == 2)
+    {
+        lcd.setCursor(0, 0);
+        lcd.print("Governador");
+        
+        char c1 = '_';
+        char c2 = '_';
+        int pointer = 0;
+        
+        char key = '\0';
+        
+        while (pointer < 2)
+        {
+            lcd.setCursor(0, 1);
+            lcd.print(c1);
+            
+            lcd.setCursor(1, 1);
+            lcd.print(c2);
+            
+            key = keypad.getKey();
+            
+            if (key)
+            {
+                if (pointer == 0)
+                {
+                    c1 = key;
+                }
+                else if (pointer == 1)
+                {
+                    c2 = key;
+                }
+                
+                pointer++;
+            }
+        }
+        
+        lcd.setCursor(0, 1);
+        lcd.print(c1);
+        
+        lcd.setCursor(1, 1);
+        lcd.print(c2);
+        
+        char num[2] = {c1, c2};
+        int number = atoi(num);
+        int index = 0;
+        
+        for (int i = 0; i < GOV_LENGTH; i++)
+        {
+            if (gov[i].number == number)
+            {
+                index = i;
+                break;
+            }
+        }
+        
+        lcd.setCursor(0, 0);
+        
+        lcd.print(gov[index].name);
+        
+        key = '\0';
+        
+        while (!key)
+        {
+            key = keypad.getKey();
+        }
+        
+        if (key == '#')
+        {
+            state++;
+        }
+        else
         {
             return;
         }

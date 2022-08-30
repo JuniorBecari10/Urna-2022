@@ -124,6 +124,8 @@ void loop()
             }
         }
         
+        lcd.clear();
+        
         lcd.setCursor(0, 1);
         lcd.print(c1);
         
@@ -204,6 +206,8 @@ void loop()
             }
         }
         
+        lcd.clear();
+        
         lcd.setCursor(0, 1);
         lcd.print(c1);
         
@@ -224,7 +228,6 @@ void loop()
         }
         
         lcd.setCursor(0, 0);
-        
         lcd.print(gov[index].name);
         
         key = '\0';
@@ -242,5 +245,11 @@ void loop()
         {
             return;
         }
+    }
+    else if (state == 3)
+    {
+        lcd.clear();
+        
+        
     }
 }

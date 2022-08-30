@@ -48,6 +48,11 @@ Candidate gov[] = { {"Altino", 16, 0}, {"Antonio Jorge", 27, 0}, {"Carol Vigliar
 
 LiquidCrystal_I2C lcd(address, columns, lines);
 
+bool isNumber(char c)
+{
+    return c >= '0' && c <= '9';
+}
+
 void setup()
 {
     lcd.init();
@@ -98,6 +103,11 @@ void loop()
             lcd.print(c2);
             
             key = keypad.getKey();
+            
+            if (!isNumber(key)) {
+                key = '\0';
+                continue;
+            }
             
             if (key)
             {
@@ -173,6 +183,11 @@ void loop()
             lcd.print(c2);
             
             key = keypad.getKey();
+            
+            if (!isNumber(key)) {
+                key = '\0';
+                continue;
+            }
             
             if (key)
             {

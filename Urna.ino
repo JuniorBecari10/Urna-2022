@@ -60,7 +60,6 @@ void setup()
     lcd.clear();
     
     Serial.begin(9600);
-    Serial.println("Waiting...");
 }
 
 void loop()
@@ -283,6 +282,24 @@ void loop()
         
         lcd.setCursor(0, 1);
         lcd.print("Votou");
+        
+        // -- print votes -- //
+        
+        for (int i = 0; i < PRES_LENGTH; i++)
+        {
+            Serial.print(pres[i].name + " | ");
+            Serial.println(pres[i].votes);
+        }
+        
+        Serial.println("\n--------------\n");
+        
+        for (int i = 0; i < GOV_LENGTH; i++)
+        {
+            Serial.print(gov[i].name + " | ");
+            Serial.println(gov[i].votes);
+        }
+        
+        Serial.println("\n--------------\n");
         
         delay(3000);
         

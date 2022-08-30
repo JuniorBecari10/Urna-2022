@@ -134,7 +134,7 @@ void loop()
         
         char num[2] = {c1, c2};
         int number = atoi(num);
-        int index = 0;
+        int index = -1;
         
         for (int i = 0; i < PRES_LENGTH; i++)
         {
@@ -145,9 +145,16 @@ void loop()
             }
         }
         
+        String name = pres[index].name;
+        
+        if (index < 0)
+        {
+            name = "Voto nulo";
+        }
+        
         lcd.setCursor(0, 0);
         
-        lcd.print(pres[index].name);
+        lcd.print(name);
         
         key = '\0';
         
@@ -158,6 +165,13 @@ void loop()
         
         if (key == '#')
         {
+            if (index < 0)
+            {
+                state++;
+                return;
+            }
+            
+            pres[index].votes++;
             state++;
         }
         else
@@ -216,7 +230,7 @@ void loop()
         
         char num[2] = {c1, c2};
         int number = atoi(num);
-        int index = 0;
+        int index = -1;
         
         for (int i = 0; i < GOV_LENGTH; i++)
         {
@@ -227,8 +241,15 @@ void loop()
             }
         }
         
+        String name = gov[index].name;
+        
+        if (index < 0)
+        {
+            name = "Voto nulo";
+        }
+        
         lcd.setCursor(0, 0);
-        lcd.print(gov[index].name);
+        lcd.print(name);
         
         key = '\0';
         
@@ -239,6 +260,13 @@ void loop()
         
         if (key == '#')
         {
+            if (index < 0)
+            {
+                state++;
+                return;
+            }
+            
+            gov[index].votes++;
             state++;
         }
         else
@@ -250,6 +278,14 @@ void loop()
     {
         lcd.clear();
         
+        lcd.setCursor(0, 0);
+        lcd.print("Fim");
         
+        lcd.setCursor(0, 1);
+        lcd.print("Votou");
+        
+        delay(3000);
+        
+        state = 1;
     }
 }
